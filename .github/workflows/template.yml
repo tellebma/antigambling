@@ -1,0 +1,61 @@
+name: CREATE CHROME EXTENSION
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_block_list_file:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+      working-directory: /app/python/  
+
+    - name: Generate Template
+      run: |
+        cp /input_site.json /app/python/input_site.json
+        python generate_block_page.py
+      working-directory: /app/python/  
+
+    - name: Commit changes
+      run: |
+        cp /app/python/rules.json /app/extensions/rules.json
+
+  create_chrome_extension:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Create Extension
+      run: |
+        # Copier les fichiers nécessaires pour l'extension dans le répertoire "extension_chrome_files"
+        mkdir -p extension_chrome_files
+        cp /app/extensions/chrome/manifest.json extension_chrome_files/
+        cp /app/extensions/icon.png extension_chrome_files/
+        cp /app/extensions/rules.json extension_chrome_files/rules.json
+
+    - name: Zip Extension
+      run: |
+        cd extension_chrome_files
+        zip -r extension.zip .
+      working-directory: extension_chrome_files
+
+    - name: Upload Extension
+      uses: actions/upload-artifact@v2
+      with:
+        name: chrome-extension
+        path: extension_chrome_files/extension.zip
