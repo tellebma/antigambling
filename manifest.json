@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Bloqueur de sites",
+  "description": "Bloque les sites de Gambling.",
+  
+  "version": "1.0",
+
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon.png"
+    }
+  }
+}
