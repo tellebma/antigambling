@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  generate_block_list_file:
+  create_chrome_extension:
     runs-on: ubuntu-latest
     
     steps:
@@ -25,7 +25,6 @@ jobs:
 
     - name: Generate Template
       run: |
-        cp /input_site.json /app/python/input_site.json
         python generate_block_page.py
       working-directory: ./app/python/  
 
@@ -34,10 +33,6 @@ jobs:
         cp ./python/rules.json ./extensions/rules.json
       working-directory: ./app/ 
 
-  create_chrome_extension:
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
