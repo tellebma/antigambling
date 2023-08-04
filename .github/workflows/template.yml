@@ -21,17 +21,18 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-      working-directory: /app/python/  
+      working-directory: ./app/python/  
 
     - name: Generate Template
       run: |
         cp /input_site.json /app/python/input_site.json
         python generate_block_page.py
-      working-directory: /app/python/  
+      working-directory: ./app/python/  
 
     - name: Commit changes
       run: |
-        cp /app/python/rules.json /app/extensions/rules.json
+        cp ./python/rules.json ./extensions/rules.json
+      working-directory: ./app/ 
 
   create_chrome_extension:
     runs-on: ubuntu-latest
