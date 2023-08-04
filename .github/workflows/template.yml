@@ -35,9 +35,6 @@ jobs:
         tree
       working-directory: ./app/ 
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Create Extension
       run: |
         # Copier les fichiers nécessaires pour l'extension dans le répertoire "extension_chrome_files"
