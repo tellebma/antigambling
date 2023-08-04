@@ -41,9 +41,10 @@ jobs:
       run: |
         # Copier les fichiers nécessaires pour l'extension dans le répertoire "extension_chrome_files"
         mkdir -p extension_chrome_files
-        cp /app/extensions/chrome/manifest.json extension_chrome_files/
-        cp /app/extensions/icon.png extension_chrome_files/
-        cp /app/extensions/rules.json extension_chrome_files/rules.json
+        cp ./extensions/chrome/manifest.json extension_chrome_files/
+        cp ./extensions/icon.png extension_chrome_files/
+        cp ./extensions/rules.json extension_chrome_files/rules.json
+      working-directory: ./app/ 
 
     - name: Zip Extension
       run: |
