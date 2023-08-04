@@ -46,9 +46,8 @@ jobs:
 
     - name: Zip Extension
       run: |
-        cd extension_chrome_files
         zip -r extension.zip .
-      working-directory: extension_chrome_files
+      working-directory: ./app/extensions/extension_chrome_files
 
     - name: Upload Extension
       uses: actions/upload-artifact@v2
